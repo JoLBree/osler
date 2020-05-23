@@ -567,9 +567,19 @@ class LiveTestPatientLists(SeleniumLiveTestCase):
         # submit form while simulating lost connection
         submit_button = self.selenium.find_element_by_id('submit-id-workup')
         # should ideally 
-        self.selenium.set_page_load_timeout(0)
-        submit_button.click()
-        self.selenium.set_page_load_timeout(30)
+        with self.settings(TEST_ONLY_SHOULD_FAIL_CHECK_CONNECTION=True):
+            import pdb
+            pdb.set_trace()
+            submit_button.click()
+
+            pdb.set_trace()
+            print('hi')
+
+
+        # self.selenium.set_page_load_timeout(0)
+        # self.selenium.set_page_load_timeout(30)
+
+
 
         # check that fields have been saved
         for field in wu_prototype:
