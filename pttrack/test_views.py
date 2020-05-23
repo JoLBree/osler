@@ -484,6 +484,11 @@ class LiveTestPatientLists(SeleniumLiveTestCase):
             signer=self.providers['attending'],
             **wu_prototype)
 
+        # Create a diagnosis type
+        workupModels.DiagnosisType.objects.create(
+            name='Cardiovascular'
+            )
+
         ai_prototype = {
             'author': self.providers['coordinator'],
             'author_type': self.providers['coordinator'].clinical_roles.first(),
@@ -556,7 +561,7 @@ class LiveTestPatientLists(SeleniumLiveTestCase):
         clinic_day.select_by_index(0)
 
         # selects first option for diagnosis category
-        dx_category_id = 'id_diagnosis-categories_1'
+        dx_category_id = 'id_diagnosis_categories_1'
         self.selenium.find_element_by_id(dx_category_id).click()
 
         # submit form while simulating lost connection
